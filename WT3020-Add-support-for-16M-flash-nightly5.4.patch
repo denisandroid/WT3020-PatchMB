@@ -1,0 +1,142 @@
+From 04e0e4167e1a66bc3b744634d65fb52d4a6954fe Sat Sep 5 19:12:28 2020 +0200
+Author: Denis Kotlyarov <denis2005991@gmail.com>"
+Date:   Sun Sep 6 02:03:42 2020 +0300
+Subject: [PATCH] WT3020: Add support for 16M flash
+---
+
+diff --git a/target/linux/ramips/dts/mt7620n_nexx_wt3020-16m.dts b/target/linux/ramips/dts/mt7620n_nexx_wt3020-16m.dts
+new file mode 100644
+index 0000000000..f9fb67621d
+--- /dev/null
++++ b/target/linux/ramips/dts/mt7620n_nexx_wt3020-16m.dts
+@@ -0,0 +1,56 @@
++/dts-v1/;
++
++#include "mt7620n_nexx_wt3020.dtsi"
++
++/ {
++	compatible = "nexx,wt3020-16m", "nexx,wt3020", "ralink,mt7620n-soc";
++	model = "Nexx WT3020 (16M, UlinProject20)";
++};
++
++&ehci {
++	status = "okay";
++};
++
++&ohci {
++	status = "okay";
++};
++
++&spi0 {
++	status = "okay";
++
++	flash@0 {
++		compatible = "jedec,spi-nor";
++		reg = <0>;
++		spi-max-frequency = <10000000>;
++
++		partitions {
++			compatible = "fixed-partitions";
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			partition@0 {
++				label = "u-boot";
++				reg = <0x0 0x30000>;
++				read-only;
++			};
++
++			partition@30000 {
++				label = "u-boot-env";
++				reg = <0x30000 0x10000>;
++				read-only;
++			};
++
++			factory: partition@40000 {
++				label = "factory";
++				reg = <0x40000 0x10000>;
++				read-only;
++			};
++
++			partition@50000 {
++				compatible = "denx,uimage";
++				label = "firmware";
++				reg = <0x50000 0xfb0000>;
++			};
++		};
++	};
++};
+diff --git a/target/linux/ramips/image/mt7620.mk b/target/linux/ramips/image/mt7620.mk
+index 149b666aad..1e59682318 100644
+--- a/target/linux/ramips/image/mt7620.mk
++++ b/target/linux/ramips/image/mt7620.mk
+@@ -788,6 +788,21 @@ define Device/nexx_wt3020-8m
+ endef
+ TARGET_DEVICES += nexx_wt3020-8m
+ 
++
++define Device/nexx_wt3020-16m
++  SOC := mt7620n
++  IMAGE_SIZE := 7872k
++  IMAGES += factory.bin
++  IMAGE/factory.bin := $$(sysupgrade_bin) | check-size | \
++	poray-header -B WT3020 -F 16M
++  DEVICE_VENDOR := Nexx
++  DEVICE_MODEL := WT3020
++  DEVICE_VARIANT := 16M
++  DEVICE_PACKAGES := kmod-usb2 kmod-usb-ohci
++  SUPPORTED_DEVICES += wt3020 wt3020-16M
++endef
++TARGET_DEVICES += nexx_wt3020-16m
++
+ define Device/ohyeah_oy-0001
+   SOC := mt7620a
+   IMAGE_SIZE := 16064k
+diff --git a/target/linux/ramips/mt7620/base-files/etc/board.d/02_network b/target/linux/ramips/mt7620/base-files/etc/board.d/02_network
+index 3c77e6ad30..821063c864 100755
+--- a/target/linux/ramips/mt7620/base-files/etc/board.d/02_network
++++ b/target/linux/ramips/mt7620/base-files/etc/board.d/02_network
+@@ -189,7 +189,8 @@ ramips_setup_interfaces()
+ 			"0:lan" "1:lan" "2:lan" "3:lan" "4:wan" "6@eth0"
+ 		;;
+ 	nexx,wt3020-4m|\
+-	nexx,wt3020-8m)
++	nexx,wt3020-8m|\
++	nexx,wt3020-16m)
+ 		ucidef_add_switch "switch0" \
+ 			"4:lan" "0:wan" "6@eth0"
+ 		;;
+@@ -245,6 +246,7 @@ ramips_setup_macs()
+ 	netgear,jwnr2010-v5|\
+ 	nexx,wt3020-4m|\
+ 	nexx,wt3020-8m|\
++	nexx,wt3020-16m|\
+ 	phicomm,psg1208|\
+ 	planex,db-wrt01|\
+ 	planex,mzk-750dhp|\
+diff --git a/tools/firmware-utils/src/mkporayfw.c b/tools/firmware-utils/src/mkporayfw.c
+index 6ec4f320d9..ffb68149eb 100644
+--- a/tools/firmware-utils/src/mkporayfw.c
++++ b/tools/firmware-utils/src/mkporayfw.c
+@@ -135,6 +135,9 @@ static struct flash_layout layouts[] = {
+ 	}, {
+ 		.id		= "8M",
+ 		.fw_max_len	= 0x7c0000,
++	}, {
++		.id		= "16M",
++		.fw_max_len	= 0xfc0000,
+ 	}, {
+ 		/* terminating entry */
+ 	}
+@@ -232,6 +235,11 @@ static struct board_info boards[] = {
+                 .layout_id      = "8M",
+                 .key            = KEY_NEXX_2,
+         }, {
++                .id             = "WT3020",
++                .hw_id          = HWID_NEXX_WT3020,
++                .layout_id      = "16M",
++                .key            = KEY_NEXX_2,
++        }, {
+ 
+ 
+ 
