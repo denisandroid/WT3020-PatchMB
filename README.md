@@ -69,6 +69,10 @@ nano /usr/lib/opkg/status
 
 ```
 /// Required for linking official linux kmod and our git linux kmod.
+
+/// 4.14.195 git version
+/// 4.14.180 official version
+
 mv /lib/modules/4.14.180/* /lib/modules/4.14.195/
 rm -R /lib/modules/4.14.180/
 ln -s /lib/modules/4.14.195/ /lib/modules/4.14.180
