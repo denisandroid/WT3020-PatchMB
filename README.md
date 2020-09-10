@@ -2,6 +2,12 @@
 New patches to add support for different flash drive sizes to openwrt for wt3020.
 
 ### <b>1. Dump 16MB PlugAndPlay/Stable (4.14 Kernel, 19.07.3, tested!)</b>
+
+<div>
+<img src="https://github.com/denisandroid/WT3020-PatchMB/blob/master/openwrt_16mb_4.19-19.07/Screenshot_OpenWrt_Luci1.png" width="450" height="300"/>
+<img src="https://github.com/denisandroid/WT3020-PatchMB/blob/master/openwrt_16mb_4.19-19.07/Screenshot_OpenWrt_Luci2.png" width="450" height="300"/>
+</div>
+
 1. The Dump, flash with the programmer or flash the image through the ```breed``` bootloader.. 
 
 ```
