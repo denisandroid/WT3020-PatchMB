@@ -38,7 +38,7 @@ https://github.com/denisandroid/WT3020-PatchMB/blob/master/openwrt_16mb_4.19-19.
 ### <b>2. Dump 8MB, breed + nexx firmware, flash with the programmer or flash the image through the ```breed``` bootloader.. </b>
 
 ```
-https://github.com/denisandroid/WT3020-PatchMB/blob/master/openwrt_16mb_4.19-19.07/dump_8%D0%BC%D0%B1_nexx_breed.bin
+https://github.com/denisandroid/WT3020-PatchMB/blob/master/openwrt_8mb_4.19-19.07/dump_8mb_nexx_breed.bin
 ```
 
 ### <b>3. Patching the git version to the official version (19.07.3, tested!)</b>
