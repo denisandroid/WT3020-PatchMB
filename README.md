@@ -110,7 +110,39 @@ OPENWRT_RELEASE="OpenWrt 19.07.3 r11063-85e04e9f46"
 
 As a result, you will get a working git version that does not swear at conflicts and perfectly works from the official kmod modules from the repository.
 
-### <b>4. Build patch 16MB Nightly (5.4 Kernel, tested!)</b>
+### <b>4. Build patch 16MB Nightly (4.14 Kernel, 19.07.3, tested!)</b>
+
+```
+git clone https://github.com/openwrt/openwrt.git --branch openwrt-19.07 --single-branch r11063-85e04e9f46
+cd ./r11063-85e04e9f46/
+
+patch -p1 < WT3020-Add-support-for-16M-flash-stable4.19-19.07.patch
+
+wget https://downloads.openwrt.org/releases/19.07.4/targets/ramips/mt7620/config.buildinfo -O .config
+
+./scripts/feeds update -a
+./scripts/feeds install -a
+
+make defconfig
+```
+
+<b>Choose:</b>
+1. Target System (MediaTek Ralink MIPS)
+2. Subtarget (MT7620 based boards)
+3. Target Profile (Nexx WT3020 (16MB))
+
+```
+make menuconfig
+make -j3
+```
+
+1. Wait, collected img you will find on the path ```bin/targets/ramips/mt7620/```
+2. Stitch clean spi 16mb (recommended winbond w25q64fv) 8mb ready dump (described above) or dump fused with your working 8mb memory flash.
+3. Using the "breed" loader, we install sysupgrade or using any other running openwrt we update sysupgrade.
+4. Next, we make patches to convert the git version to the official version (described above) in an already working modem (I warn you, the first launch of the modem will take a long time, since the user 8mb spi is converted to 16mb spi)
+
+
+### <b>5. Build patch 16MB Nightly (5.4 Kernel, tested!)</b>
 It is not recommended, since after the build you will not be able to install any of the possible packages due to unresolved dependencies.
 
 ```
