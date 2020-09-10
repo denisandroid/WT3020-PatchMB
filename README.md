@@ -35,8 +35,72 @@ https://github.com/denisandroid/WT3020-PatchMB/blob/master/openwrt_16mb_4.19-19.
 https://github.com/denisandroid/WT3020-PatchMB/blob/master/openwrt_16mb_4.19-19.07/dump_8%D0%BC%D0%B1_nexx_breed.bin
 ```
 
+### 3. Patching the git version to the official version (19.07.3, tested!)
 
-### 3. Build patch 16MB Nightly (5.4 Kernel, tested!)
+```
+cd /tmp
+wget http://downloads.openwrt.org/releases/19.07.3/targets/ramips/mt7620/packages/kernel_4.14.180-1-18384755d38fc43c447d83d4a3e07054_mipsel_24kc.ipk
+opkg install "/tmp/kernel_4.14.180-1-18384755d38fc43c447d83d4a3e07054_mipsel_24kc.ipk" --force-downgrade --force-reinstall
+
+opkg update
+opkg install nano
+```
+
+
+```
+nano /etc/opkg/distfeeds.conf
+
+/// add to the end
+src/gz openwrt_kmods http://downloads.openwrt.org/releases/19.07.3/targets/ramips/mt7620/kmods/4.14.180-1-18384755d38fc43c447d83d4a3e07054
+```
+
+```
+opkg update
+```
+
+
+```
+nano /usr/lib/opkg/status
+
+/// full_replace version 4.14.195 -> 4.14.180
+/// 4.14.195 git version
+/// 4.14.180 official version
+```
+
+```
+/// Required for linking official linux kmod and our git linux kmod.
+mv /lib/modules/4.14.180/* /lib/modules/4.14.195/
+rm -R /lib/modules/4.14.180/
+ln -s /lib/modules/4.14.195/ /lib/modules/4.14.180
+```
+
+```
+nano /usr/lib/os-release
+
+///Replace completely with this
+NAME="OpenWrt"
+VERSION="19.07.3"
+ID="openwrt"
+ID_LIKE="lede openwrt"
+PRETTY_NAME="OpenWrt 19.07.3"
+VERSION_ID="19.07.3"
+HOME_URL="https://openwrt.org/"
+BUG_URL="https://bugs.openwrt.org/"
+SUPPORT_URL="https://forum.openwrt.org/"
+BUILD_ID="r11063-85e04e9f46"
+OPENWRT_BOARD="ramips/mt7620"
+OPENWRT_ARCH="mipsel_24kc"
+OPENWRT_TAINTS=""
+OPENWRT_DEVICE_MANUFACTURER="OpenWrt"
+OPENWRT_DEVICE_MANUFACTURER_URL="https://openwrt.org/"
+OPENWRT_DEVICE_PRODUCT="Generic"
+OPENWRT_DEVICE_REVISION="v0"
+OPENWRT_RELEASE="OpenWrt 19.07.3 r11063-85e04e9f46"
+```
+
+As a result, you will get a working git version that does not swear at conflicts and perfectly works from the official kmod modules from the repository.
+
+### 4. Build patch 16MB Nightly (5.4 Kernel, tested!)
 ```
 git clone https://github.com/openwrt/openwrt.git
 git pull
