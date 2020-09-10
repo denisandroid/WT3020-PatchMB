@@ -29,6 +29,13 @@ https://github.com/denisandroid/WT3020-PatchMB/blob/master/openwrt_16mb_4.19-19.
 https://github.com/denisandroid/WT3020-PatchMB/blob/master/openwrt_16mb_4.19-19.07/git_build/openwrt-19.07-snapshot-r11210-29b4104d69-ramips-mt7620-wt3020-16M-squashfs-factory.bin
 ```
 
+### Dump 8MB, breed + nexx firmware, flash with the programmer or flash the image through the ```breed``` bootloader.. 
+
+```
+https://github.com/denisandroid/WT3020-PatchMB/blob/master/openwrt_16mb_4.19-19.07/dump_8%D0%BC%D0%B1_nexx_breed.bin
+```
+
+
 ### Build patch 16MB Nightly (5.4 Kernel, tested!)
 ```
 git clone https://github.com/openwrt/openwrt.git
