@@ -1,5 +1,5 @@
 # WT3020-PatchMB
-New patches to add support for different flash drive sizes to openwrt for wt3020.
+New fixes to add support for different flash drive sizes to openwrt for wt3020. (1,2,3,4 are separate items).
 
 ### <b>1. Dump 16MB PlugAndPlay/Stable (4.14 Kernel, 19.07.3, tested!)</b>
 
