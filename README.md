@@ -108,6 +108,24 @@ OPENWRT_DEVICE_REVISION="v0"
 OPENWRT_RELEASE="OpenWrt 19.07.3 r11063-85e04e9f46"
 ```
 
+```
+nano /etc/openwrt_version
+
+r11063-85e04e9f46
+```
+
+```
+nano /etc/openwrt_release
+
+DISTRIB_ID='OpenWrt'
+DISTRIB_RELEASE='19.07-Generic'
+DISTRIB_REVISION='r11063-85e04e9f46'
+DISTRIB_TARGET='ramips/mt7620'
+DISTRIB_ARCH='mipsel_24kc'
+DISTRIB_DESCRIPTION='OpenWrt 19.07-Generic r11063-85e04e9f46'
+DISTRIB_TAINTS=''
+```
+
 As a result, you will get a working git version that does not swear at conflicts and perfectly works from the official kmod modules from the repository.
 
 ### <b>4. Build patch 16MB Stable release (4.14 Kernel, 19.07.3, tested!)</b>
