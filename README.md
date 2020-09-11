@@ -126,6 +126,19 @@ DISTRIB_DESCRIPTION='OpenWrt 19.07-Generic r11063-85e04e9f46'
 DISTRIB_TAINTS=''
 ```
 
+```
+nano /etc/banner
+
+  _______                     ________        __
+ |       |.-----.-----.-----.|  |  |  |.----.|  |_
+ |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+ |_______||   __|_____|__|__||________||__|  |____|
+          |__| W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ OpenWrt 19.07-Generic, r11063-85e04e9f46
+ -----------------------------------------------------
+```
+
 As a result, you will get a working git version that does not swear at conflicts and perfectly works from the official kmod modules from the repository.
 
 ### <b>4. Build patch 16MB Stable release (4.14 Kernel, 19.07.3, tested!)</b>
