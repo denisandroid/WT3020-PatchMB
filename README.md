@@ -110,7 +110,7 @@ OPENWRT_RELEASE="OpenWrt 19.07.3 r11063-85e04e9f46"
 
 As a result, you will get a working git version that does not swear at conflicts and perfectly works from the official kmod modules from the repository.
 
-### <b>4. Build patch 16MB Nightly (4.14 Kernel, 19.07.3, tested!)</b>
+### <b>4. Build patch 16MB Stable release (4.14 Kernel, 19.07.3, tested!)</b>
 
 ```
 git clone https://github.com/openwrt/openwrt.git --branch openwrt-19.07 --single-branch r11063-85e04e9f46
