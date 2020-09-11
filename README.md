@@ -71,6 +71,9 @@ nano /usr/lib/opkg/status
 /// full_replace version 4.14.195 -> 4.14.180
 /// 4.14.195 git version
 /// 4.14.180 official version
+
+/// (test)
+/// 4.19.137-1-2 -> 4.19.120-1-1
 ```
 
 ```
