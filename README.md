@@ -148,8 +148,9 @@ As a result, you will get a working git version that does not swear at conflicts
 ### <b>4. Build patch 16MB Stable release (4.14 Kernel, 19.07.3, tested!)</b>
 
 ```
-git clone https://github.com/openwrt/openwrt.git --branch openwrt-19.07 --single-branch r11063-85e04e9f46
-cd ./r11063-85e04e9f46/
+git clone https://github.com/openwrt/openwrt.git --branch openwrt-19.07 
+git checkout r11063-85e04e9f46
+cd ./openwrt/
 
 patch -p1 < WT3020-Add-support-for-16M-flash-stable4.19-19.07.patch
 
