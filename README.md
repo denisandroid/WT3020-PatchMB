@@ -158,7 +158,6 @@ wget https://downloads.openwrt.org/releases/19.07.4/targets/ramips/mt7620/config
 ./scripts/feeds update -a
 ./scripts/feeds install -a
 
-make defconfig
 ```
 
 <b>Choose:</b>
