@@ -4,6 +4,7 @@ New fixes to add support for different flash drive sizes to openwrt for wt3020.
 <img src="https://github.com/denisandroid/WT3020-PatchMB/blob/master/openwrt_16mb_4.19-19.07/Screenshot_OpenWrt_Luci1.png" width="400" height="250"/>
 <img src="https://github.com/denisandroid/WT3020-PatchMB/blob/master/openwrt_16mb_4.19-19.07/Screenshot_OpenWrt_Luci2.png" width="400" height="250"/>
 </div>
+</br></br>
 
 |#| OpenWrt       | Size  	| Stable 	| Assembly guide  | Dump availability	|
 |-| ------------- | ------  | ------	| --------------	|	---------------		|
