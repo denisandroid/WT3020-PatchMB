@@ -1,0 +1,25 @@
+From a7dfb8e460134194f01349c5f1c9044639f5207c Mon Sep 17 00:00:00 2001
+Author: Denis Kotlyarov <denis2005991@gmail.com>"
+Date:   Thu, 17 Sep 2020 01:40:48 +0300
+Subject: [PATCH] WT3020: Add fix kernel version
+
+---
+ include/kernel-defaults.mk | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/kernel-defaults.mk b/include/kernel-defaults.mk
+index cc1e2361be..6bd6b0a3c7 100644
+--- a/include/kernel-defaults.mk
++++ b/include/kernel-defaults.mk
+@@ -105,7 +105,7 @@ define Kernel/Configure/Default
+ 		cp $(LINUX_DIR)/.config.set $(LINUX_DIR)/.config.prev; \
+ 	}
+ 	$(_SINGLE) [ -d $(LINUX_DIR)/user_headers ] || $(KERNEL_MAKE) INSTALL_HDR_PATH=$(LINUX_DIR)/user_headers headers_install
+-	grep '=[ym]' $(LINUX_DIR)/.config.set | LC_ALL=C sort | mkhash md5 > $(LINUX_DIR)/.vermagic
++	grep '=[ym]' $(LINUX_DIR)/.config.set | LC_ALL=C sort | echo "18384755d38fc43c447d83d4a3e07054" > $(LINUX_DIR)/.vermagic
+ endef
+ 
+ define Kernel/Configure/Initramfs
+-- 
+2.28.0
+

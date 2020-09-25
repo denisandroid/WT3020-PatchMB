@@ -1,0 +1,147 @@
+From ed96e00f88ac976d83efa585dee07ea0c41615a9 Mon Sep 17 00:00:00 2001
+Author: Denis Kotlyarov <denis2005991@gmail.com>"
+Date:   Sun Sep 6 13:00:00 2020 +0300
+Subject: [PATCH] WT3020: Add support for 16M flash
+
+---
+diff --git a/target/linux/ramips/base-files/etc/board.d/02_network b/target/linux/ramips/base-files/etc/board.d/02_network
+index 8ca1831afe..ec7e4ac962 100755
+--- a/target/linux/ramips/base-files/etc/board.d/02_network
++++ b/target/linux/ramips/base-files/etc/board.d/02_network
+@@ -460,7 +460,8 @@ ramips_setup_interfaces()
+ 			"0:wan" "3:lan" "4:lan" "6@eth0"
+ 		;;
+ 	wt3020-4M|\
+-	wt3020-8M)
++	wt3020-8M|\
++	wt3020-16M)
+ 		ucidef_add_switch "switch0" \
+ 			"4:lan" "0:wan" "6@eth0"
+ 		;;
+diff --git a/target/linux/ramips/base-files/lib/ramips.sh b/target/linux/ramips/base-files/lib/ramips.sh
+index 093303892c..d209423ca7 100755
+--- a/target/linux/ramips/base-files/lib/ramips.sh
++++ b/target/linux/ramips/base-files/lib/ramips.sh
+@@ -640,6 +640,9 @@ ramips_board_detect() {
+ 	*"WT3020 (8M)")
+ 		name="wt3020-8M"
+ 		;;
++	*"WT3020 (16M)")
++		name="wt3020-16M"
++		;;
+ 	*"WZR-AGL300NH")
+ 		name="wzr-agl300nh"
+ 		;;
+diff --git a/target/linux/ramips/dts/WT3020-16M.dts b/target/linux/ramips/dts/WT3020-16M.dts
+new file mode 100644
+index 0000000000..d6a69dc9b1
+--- /dev/null
++++ b/target/linux/ramips/dts/WT3020-16M.dts
+@@ -0,0 +1,56 @@
++/dts-v1/;
++
++#include "WT3020.dtsi"
++
++/ {
++	compatible = "nexx,wt3020-16m", "nexx,wt3020", "ralink,mt7620n-soc";
++	model = "Nexx WT3020 (16M, UlinProject20)";
++};
++
++&ehci {
++	status = "okay";
++};
++
++&ohci {
++	status = "okay";
++};
++
++&spi0 {
++	status = "okay";
++
++	m25p80@0 {
++		compatible = "jedec,spi-nor";
++		reg = <0>;
++		spi-max-frequency = <14000000>;
++
++		partitions {
++			compatible = "fixed-partitions";
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			partition@0 {
++				label = "u-boot";
++				reg = <0x0 0x30000>;
++				read-only;
++			};
++
++			partition@30000 {
++				label = "u-boot-env";
++				reg = <0x30000 0x10000>;
++				read-only;
++			};
++
++			factory: partition@40000 {
++				label = "factory";
++				reg = <0x40000 0x10000>;
++				read-only;
++			};
++
++			firmware: partition@50000 {
++				compatible = "denx,uimage";
++				label = "firmware";
++				reg = <0x50000 0xfb0000>;
++			};
++		};
++	};
++};
+diff --git a/target/linux/ramips/image/mt7620.mk b/target/linux/ramips/image/mt7620.mk
+index 89723fbb52..00ca29c2d7 100644
+--- a/target/linux/ramips/image/mt7620.mk
++++ b/target/linux/ramips/image/mt7620.mk
+@@ -750,6 +750,17 @@ define Device/wt3020-8M
+ endef
+ TARGET_DEVICES += wt3020-8M
+ 
++define Device/wt3020-16M
++  DTS := WT3020-16M
++  IMAGES += factory.bin
++  SUPPORTED_DEVICES += wt3020
++  IMAGE/factory.bin := $$(sysupgrade_bin) | check-size $$$$(IMAGE_SIZE) | \
++	poray-header -B WT3020 -F 16M
++  DEVICE_TITLE := Nexx WT3020 (16MB)
++  DEVICE_PACKAGES := kmod-usb2 kmod-usb-ohci
++endef
++TARGET_DEVICES += wt3020-16M
++
+ define Device/y1
+   DTS := Y1
+   IMAGE_SIZE := $(ralink_default_fw_size_16M)
+diff --git a/tools/firmware-utils/src/mkporayfw.c b/tools/firmware-utils/src/mkporayfw.c
+index 6ec4f320d9..ffb68149eb 100644
+--- a/tools/firmware-utils/src/mkporayfw.c
++++ b/tools/firmware-utils/src/mkporayfw.c
+@@ -135,6 +135,9 @@ static struct flash_layout layouts[] = {
+ 	}, {
+ 		.id		= "8M",
+ 		.fw_max_len	= 0x7c0000,
++	}, {
++		.id		= "16M",
++		.fw_max_len	= 0xfc0000,
+ 	}, {
+ 		/* terminating entry */
+ 	}
+@@ -232,6 +235,11 @@ static struct board_info boards[] = {
+                 .layout_id      = "8M",
+                 .key            = KEY_NEXX_2,
+         }, {
++                .id             = "WT3020",
++                .hw_id          = HWID_NEXX_WT3020,
++                .layout_id      = "16M",
++                .key            = KEY_NEXX_2,
++        }, {
+ 
+ 
+ 
+-- 
+2.28.0
+
