@@ -33,7 +33,41 @@ https://github.com/denisandroid/WT3020-PatchMB/blob/master/openwrt_16mb_4.19-19.
 https://github.com/denisandroid/WT3020-PatchMB/blob/master/openwrt_16mb_4.19-19.07/git_build/openwrt-19.07-snapshot-r11210-29b4104d69-ramips-mt7620-wt3020-16M-squashfs-factory.bin
 ```
 
-### <b>2. Patching the git version to the official version (19.07.3, tested!)</b>
+
+### <b>2. Build patch 16MB Stable release (4.14 Kernel, 19.07.3, tested!)</b>
+
+```
+git clone https://github.com/openwrt/openwrt.git --branch openwrt-19.07 
+git checkout r11063-85e04e9f46
+cd ./openwrt/
+
+patch -p1 < WT3020-Add-support-for-16M-flash-stable4.19-19.07.patch
+
+wget https://downloads.openwrt.org/releases/19.07.4/targets/ramips/mt7620/config.buildinfo -O .config
+
+./scripts/feeds update -a
+./scripts/feeds install -a
+
+```
+
+<b>Choose:</b>
+1. Target System (MediaTek Ralink MIPS)
+2. Subtarget (MT7620 based boards)
+3. Target Profile (Nexx WT3020 (16MB))
+
+```
+make menuconfig
+make -j3
+```
+
+1. Wait, collected img you will find on the path ```bin/targets/ramips/mt7620/```
+2. Stitch clean spi 16mb (recommended winbond w25q64fv) 8mb ready dump (described above) or dump fused with your working 8mb memory flash.
+3. Using the "breed" loader, we install sysupgrade or using any other running openwrt we update sysupgrade.
+4. Next, we make patches to convert the git version to the official version (described above) in an already working modem (I warn you, the first launch of the modem will take a long time, since the user 8mb spi is converted to 16mb spi)
+
+
+
+### <b>3. Patching the git version to the official version (19.07.3, tested!)</b>
 
 ```
 cd /tmp
