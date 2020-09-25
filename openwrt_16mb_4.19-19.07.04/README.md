@@ -50,7 +50,7 @@ make -j3
 ```
 
 1. Wait, collected img you will find on the path ```bin/targets/ramips/mt7620/```
-2. Stitch clean spi 16mb (recommended winbond w25q64fv) 8mb ready dump (described above) or dump fused with your working 8mb memory flash.
+2. Stitch clean spi 16mb (recommended winbond w25q128fv) 8mb ready dump (described above) or dump fused with your working 8mb memory flash.
 3. Using the "breed" loader, we install sysupgrade or using any other running openwrt we update sysupgrade.
 4. No patch required to mask the version!!! Just use!
 
