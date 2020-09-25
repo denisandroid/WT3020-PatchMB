@@ -61,7 +61,7 @@ make -j3
 ```
 
 1. Wait, collected img you will find on the path ```bin/targets/ramips/mt7620/```
-2. Stitch clean spi 16mb (recommended winbond w25q64fv) 8mb ready dump (described above) or dump fused with your working 8mb memory flash.
+2. Stitch clean spi 16mb (recommended winbond w25q128fv) 8mb ready dump (described above) or dump fused with your working 8mb memory flash.
 3. Using the "breed" loader, we install sysupgrade or using any other running openwrt we update sysupgrade.
 4. Next, we make patches to convert the git version to the official version (described above) in an already working modem (I warn you, the first launch of the modem will take a long time, since the user 8mb spi is converted to 16mb spi)
 
