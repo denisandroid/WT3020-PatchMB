@@ -2,7 +2,7 @@
 
 
 
-### <b>1. Build patch 16MB Nightly (5.4 Kernel)</b>
+### <b>1. Build 16MB Nightly (5.4 Kernel)</b>
 It is not recommended, since after the build you will not be able to install any of the possible packages due to unresolved dependencies.
 
 ```
