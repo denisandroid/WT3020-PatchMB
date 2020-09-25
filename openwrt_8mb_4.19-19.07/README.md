@@ -1,4 +1,4 @@
-# Openwrt_8mb_4.19-19.07
+# Openwrt_8mb_4.19-19.07 (.03)
 
 
 ### <b>1. Dump 8MB, breed + nexx firmware, flash with the programmer or flash the image through the ```breed``` bootloader.. </b>
