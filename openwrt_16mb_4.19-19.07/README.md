@@ -34,7 +34,7 @@ https://github.com/denisandroid/WT3020-PatchMB/blob/master/openwrt_16mb_4.19-19.
 ```
 
 
-### <b>2. Build patch 16MB Stable release (4.14 Kernel, 19.07.3, tested!)</b>
+### <b>2. Make 16MB Stable release (4.14 Kernel, 19.07.3, tested!)</b>
 
 ```
 git clone https://github.com/openwrt/openwrt.git --branch openwrt-19.07 
