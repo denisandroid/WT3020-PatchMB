@@ -26,8 +26,8 @@ https://github.com/denisandroid/WT3020-PatchMB/blob/master/openwrt_16mb_4.19-19.
 
 ```
 git clone https://github.com/openwrt/openwrt --branch openwrt-19.07
-git checkout d5810aa61367a9424599935572f622d27f8303f0
 cd ./openwrt/
+git checkout d5810aa61367a9424599935572f622d27f8303f0
 
 patch -p1 < 0001-1.-Patch-version.patch
 patch -p1 < 0002-2.WT3020-Add-support-for-16M-flash-stable4.19-19.07.patch
