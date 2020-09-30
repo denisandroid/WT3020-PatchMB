@@ -14,8 +14,6 @@ New fixes to add support for different flash drive sizes to openwrt for wt3020.
 |3.|<a href="https://github.com/denisandroid/WT3020-PatchMB/tree/master/openwrt_16mb_5.4kernel_unstable">openwrt_16mb_5.4kernel</a>|16mb, w25q128fv|<b>-</b>|<b>+</b>|<b>-</b>|
 |4.|<a href="https://github.com/denisandroid/WT3020-PatchMB/tree/master/openwrt_8mb_4.19-19.07">openwrt_8mb_4.19-19.07</a>|8mb|<b>+</b>|<b>-</b>|<b>+ (breed loader)</b>|
 
-</br></br>
-
 <b># Alternative url:<b>
 |#  | OpenWrt     | Description  |
 |-  | -           | -       |
