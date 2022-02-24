@@ -19,3 +19,4 @@ New fixes to add support for different flash drive sizes to openwrt for wt3020.
 |-  | -           | -       |
 |1. | <a href="https://4pda.ru/forum/index.php?s=&showtopic=684260&view=findpost&p=100255799">openwrt_16mb_4.19-19.07.04</a> | (4pda, russian language, 16mb, w25q128fv) |
 |2. | <a href="https://4pda.ru/forum/index.php?s=&showtopic=684260&view=findpost&p=99754959">openwrt_16mb_4.19-19.07.03</a> | (4pda, russian language, 16mb, w25q128fv) |
+|3. | <a href="https://4pda.to/forum/index.php?showtopic=684260&st=6400#entry105967254">openwrt_16mb_4.19-19.07.07</a> | (4pda, russian language, 32mb/16mb, (MX25L25645/MX25L25635E)/(w25q128fv)) |
